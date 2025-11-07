@@ -5,11 +5,12 @@ import { SearchIcon, CarTypeIcon, PriceIcon } from './IconComponents';
 interface FilterSidebarProps {
   filters: FilterState;
   setFilters: React.Dispatch<React.SetStateAction<FilterState>>;
+  isVisible: boolean;
 }
 
 const carCategories: (CarCategory | 'all')[] = ['all', 'Luxury', 'Sport', 'Electric', 'SUV'];
 
-const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters }) => {
+const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, isVisible }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -19,7 +20,14 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters }) =>
   };
 
   return (
-    <aside className="lg:w-72 xl:w-80 flex-shrink-0 bg-brand-gray rounded-lg p-6 space-y-8 self-start top-24 sticky">
+    <aside className={`
+      lg:w-72 xl:w-80 flex-shrink-0 bg-brand-gray rounded-lg p-6 space-y-8 self-start top-24 sticky
+      transform transition-all duration-500 ease-in-out
+      ${isVisible 
+        ? 'opacity-100 translate-x-0' 
+        : 'opacity-0 -translate-x-full w-0 p-0 overflow-hidden'
+      }
+    `}>
       <div>
         <h3 className="text-lg font-semibold text-gray-200 mb-4 flex items-center">
           <SearchIcon className="w-5 h-5 mr-2 text-brand-blue" />

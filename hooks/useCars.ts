@@ -13,7 +13,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Gasoline',
       pricePerDay: 450,
-      imageUrl: 'https://picsum.photos/seed/porsche911/800/600',
+      imageUrl: 'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Leather Seats', 'Bose Sound System', 'Sport Chrono Package', 'Sunroof'],
     },
     {
@@ -27,7 +27,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Gasoline',
       pricePerDay: 550,
-      imageUrl: 'https://picsum.photos/seed/mercedesg/800/600',
+      imageUrl: 'https://images.pexels.com/photos/1637859/pexels-photo-1637859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Heated Seats', '360° Camera', 'Ambient Lighting', 'Burmester Sound System'],
     },
     {
@@ -41,7 +41,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Electric',
       pricePerDay: 400,
-      imageUrl: 'https://picsum.photos/seed/teslas/800/600',
+      imageUrl: 'https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Autopilot', '17" Touchscreen Display', 'Glass Roof', 'Premium Audio'],
     },
     {
@@ -55,7 +55,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Gasoline',
       pricePerDay: 420,
-      imageUrl: 'https://picsum.photos/seed/bmwm4/800/600',
+      imageUrl: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Carbon Fiber Trim', 'Harman Kardon Audio', 'M Sport Seats', 'Laserlight Headlights'],
     },
     {
@@ -69,7 +69,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Hybrid',
       pricePerDay: 480,
-      imageUrl: 'https://picsum.photos/seed/rangerover/800/600',
+      imageUrl: 'https://images.pexels.com/photos/3764014/pexels-photo-3764014.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Air Suspension', 'Meridian Sound System', 'Panoramic Roof', 'Heated Steering Wheel'],
     },
     {
@@ -83,7 +83,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Gasoline',
       pricePerDay: 650,
-      imageUrl: 'https://picsum.photos/seed/audir8/800/600',
+      imageUrl: 'https://images.pexels.com/photos/627678/pexels-photo-627678.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['V10 Engine', 'Bang & Olufsen Sound', 'Virtual Cockpit', 'Carbon Fiber Accents'],
     },
      {
@@ -97,7 +97,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Gasoline',
       pricePerDay: 700,
-      imageUrl: 'https://picsum.photos/seed/urus/800/600',
+      imageUrl: 'https://images.pexels.com/photos/3972755/pexels-photo-3972755.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Active Air Suspension', 'Akrapovič Exhaust', 'Alcantara Interior', 'Night Vision'],
     },
     {
@@ -111,7 +111,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Gasoline',
       pricePerDay: 950,
-      imageUrl: 'https://picsum.photos/seed/cullinan/800/600',
+      imageUrl: 'https://images.pexels.com/photos/10394782/pexels-photo-10394782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Starlight Headliner', 'Champagne Cooler', 'Magic Carpet Ride Suspension', 'Bespoke Audio'],
     },
      {
@@ -125,7 +125,7 @@ export const useCars = () => {
       transmission: 'Automatic',
       fuelType: 'Gasoline',
       pricePerDay: 850,
-      imageUrl: 'https://picsum.photos/seed/bentleygt/800/600',
+      imageUrl: 'https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       features: ['Diamond Quilted Seats', 'Naim for Bentley Audio', 'Rotating Display', 'Air Suspension'],
     },
   ];

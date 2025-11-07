@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Car, FilterState, UserDetails, Booking } from './types';
 import { useCars } from './hooks/useCars';
 import Header from './components/Header';
@@ -6,9 +6,13 @@ import CarList from './components/CarList';
 import CarDetailsModal from './components/CarDetailsModal';
 import ConfirmationModal from './components/ConfirmationModal';
 import AdminDashboard from './components/AdminDashboard';
+import LoginScreen from './components/LoginScreen';
+import CarFormModal from './components/CarFormModal';
 
 export default function App() {
-  const { cars } = useCars();
+  const { cars: initialCars } = useCars();
+  const [cars, setCars] = useState<Car[]>(initialCars);
+
   const [filters, setFilters] = useState<FilterState>({
     searchTerm: '',
     category: 'all',
@@ -18,9 +22,23 @@ export default function App() {
   const [isConfirmationVisible, setConfirmationVisible] = useState(false);
   const [bookingDetails, setBookingDetails] = useState<Booking | null>(null);
 
-  // New state for admin mode and bookings list
+  // --- Auth & Admin State ---
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
+
+  // --- Car Form Modal State ---
+  const [isCarFormModalOpen, setCarFormModalOpen] = useState(false);
+  const [editingCar, setEditingCar] = useState<Car | null>(null);
+
+  useEffect(() => {
+    // If user logs out, ensure they are not in admin view
+    if (!isAuthenticated) {
+      setIsAdmin(false);
+    }
+  }, [isAuthenticated]);
+
 
   const filteredCars = useMemo(() => {
     return cars.filter((car) => {
@@ -68,13 +86,64 @@ export default function App() {
     setConfirmationVisible(false);
     setBookingDetails(null);
   };
+  
+  const handleLogin = (email: string, password: string): boolean => {
+    if (email === 'admin@luxedrive.com' && password === 'admin123') {
+      setIsAuthenticated(true);
+      setIsAdmin(true); // Default to admin view after login
+      setLoginModalOpen(false); // Close login modal on success
+      return true;
+    }
+    return false;
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setIsAdmin(false);
+  };
+  
+  // --- CAR CRUD ---
+  const handleAddCar = (newCarData: Omit<Car, 'id'>) => {
+    const newCar = { ...newCarData, id: Date.now() }; // Simple unique ID
+    setCars(prevCars => [newCar, ...prevCars]);
+  };
+  
+  const handleUpdateCar = (updatedCar: Car) => {
+    setCars(prevCars => prevCars.map(car => car.id === updatedCar.id ? updatedCar : car));
+  };
+  
+  const handleDeleteCar = (carId: number) => {
+    setCars(prevCars => prevCars.filter(car => car.id !== carId));
+  };
+  
+  const openCarFormModal = (car: Car | null) => {
+    setEditingCar(car);
+    setCarFormModalOpen(true);
+  };
+  
+  const closeCarFormModal = () => {
+    setEditingCar(null);
+    setCarFormModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-brand-dark font-sans">
-      <Header isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+      <Header 
+        isAdmin={isAdmin} 
+        setIsAdmin={setIsAdmin} 
+        onLogout={handleLogout} 
+        isAuthenticated={isAuthenticated} 
+        onLoginClick={() => setLoginModalOpen(true)}
+      />
       <main className="container mx-auto px-4 py-8">
         {isAdmin ? (
-          <AdminDashboard cars={cars} bookings={bookings} />
+          <AdminDashboard 
+            cars={cars} 
+            bookings={bookings} 
+            onAddCar={() => openCarFormModal(null)}
+            onEditCar={openCarFormModal}
+            onDeleteCar={handleDeleteCar}
+          />
         ) : (
           <CarList
             cars={filteredCars}
@@ -85,6 +154,9 @@ export default function App() {
           />
         )}
       </main>
+      
+      {isLoginModalOpen && <LoginScreen onLogin={handleLogin} onClose={() => setLoginModalOpen(false)} />}
+
       {selectedCar && (
         <CarDetailsModal
           car={selectedCar}
@@ -93,6 +165,15 @@ export default function App() {
           bookings={bookings}
         />
       )}
+
+      {isCarFormModalOpen && (
+        <CarFormModal 
+          car={editingCar}
+          onClose={closeCarFormModal}
+          onSave={editingCar ? handleUpdateCar : handleAddCar}
+        />
+      )}
+
       {isConfirmationVisible && bookingDetails && (
         <ConfirmationModal
           bookingDetails={bookingDetails}

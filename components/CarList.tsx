@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Car, FilterState, CarCategory } from '../types';
 import CarCard from './CarCard';
 import FilterSidebar from './FilterSidebar';
@@ -12,6 +12,20 @@ interface CarListProps {
 }
 
 const CarList: React.FC<CarListProps> = ({ cars, allCars, filters, setFilters, onSelectCar }) => {
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Hide sidebar after scrolling down a bit (e.g., 100px)
+      setIsSidebarVisible(window.scrollY < 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
   const categories = useMemo(() => {
     // Use allCars to get all possible categories, even if they are filtered out
     const uniqueCategories = [...new Set(allCars.map(car => car.category))];
@@ -26,8 +40,8 @@ const CarList: React.FC<CarListProps> = ({ cars, allCars, filters, setFilters, o
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
-      <FilterSidebar filters={filters} setFilters={setFilters} />
-      <div className="flex-grow">
+      <FilterSidebar filters={filters} setFilters={setFilters} isVisible={isSidebarVisible} />
+      <div className="flex-grow transition-all duration-500">
         {cars.length > 0 ? (
           <div className="space-y-12">
             {categories.map(category => {

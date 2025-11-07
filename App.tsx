@@ -8,6 +8,7 @@ import ConfirmationModal from './components/ConfirmationModal';
 import AdminDashboard from './components/AdminDashboard';
 import LoginScreen from './components/LoginScreen';
 import CarFormModal from './components/CarFormModal';
+import { login } from './services/authService';
 
 export default function App() {
   const { cars: initialCars } = useCars();
@@ -87,14 +88,17 @@ export default function App() {
     setBookingDetails(null);
   };
   
-  const handleLogin = (email: string, password: string): boolean => {
-    if (email === 'admin@luxedrive.com' && password === 'admin123') {
+  const handleLogin = async (email: string, password: string) => {
+    try {
+      await login(email, password);
       setIsAuthenticated(true);
-      setIsAdmin(true); // Default to admin view after login
-      setLoginModalOpen(false); // Close login modal on success
-      return true;
+      setIsAdmin(true);
+      setLoginModalOpen(false);
+    } catch (error) {
+      // The error will be caught and displayed by the LoginScreen component.
+      // We re-throw it so the LoginScreen knows the login failed.
+      throw error;
     }
-    return false;
   };
 
   const handleLogout = () => {

@@ -37,3 +37,10 @@ export interface Booking {
     totalPrice: number;
     days: number;
 }
+
+export interface AdminUser {
+    id: string;
+    email: string;
+    password: string; // In a real app, this would never be sent to the client.
+    role: 'admin';
+}
